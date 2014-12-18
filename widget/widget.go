@@ -4,16 +4,16 @@ import (
 	"fmt"
 )
 
-var Builder WidgetBuilderer = &WidgetBuilder{}
+var Builder WidgetBuilder = &widgetBuilder{}
 
-type WidgetBuilderer interface {
+type WidgetBuilder interface {
 	BuildWidget(property string) Runner
 }
 
-type WidgetBuilder struct {
+type widgetBuilder struct {
 }
 
-func (builder *WidgetBuilder) BuildWidget(property string) Runner {
+func (builder *widgetBuilder) BuildWidget(property string) Runner {
 	return &Widget{Property: property}
 }
 
