@@ -4,16 +4,7 @@ import (
 	"fmt"
 )
 
-var Builder WidgetBuilder = &widgetBuilder{}
-
-type WidgetBuilder interface {
-	BuildWidget(property string) Runner
-}
-
-type widgetBuilder struct {
-}
-
-func (builder *widgetBuilder) BuildWidget(property string) Runner {
+var NewWidget = func(property string) Runner {
 	return &Widget{Property: property}
 }
 
