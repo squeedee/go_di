@@ -2,8 +2,8 @@ package go_di_test
 
 import (
 	. "github.com/squeedee/go_di/go_di"
-	"github.com/squeedee/go_di/go_di/fakes"
 	"github.com/squeedee/go_di/widget"
+	"github.com/squeedee/go_di/widget/fakes"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -18,11 +18,13 @@ var _ = Describe("GoDi", func() {
 	})
 
 	Describe("Unit test", func() {
-		var fakeWidget fakes.FakeWidget
+		var fakeRunner fakes.FakeRunner
 
 		BeforeEach(func() {
+			fakeRunner.RunReturns("fake run")
+
 			widget.NewWidget = func(property string) widget.Runner {
-				return &fakeWidget
+				return &fakeRunner
 			}
 		})
 
@@ -30,7 +32,7 @@ var _ = Describe("GoDi", func() {
 			output := GoDi()
 
 			Expect(output).To(Equal("fake run"))
-			Expect(fakeWidget.GetWhatHappened()).To(Equal("Ran Run"))
+			Expect(fakeRunner.RunCallCount()).To(Equal(1))
 		})
 	})
 
